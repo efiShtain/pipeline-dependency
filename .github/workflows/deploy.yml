@@ -1,34 +1,34 @@
 name: "Deploy"
 
-on: 
-  workflow_dispatch:
+on:
+    workflow_dispatch:
 
 jobs:
-  staging:
-    name: "Stage"
-    runs-on: ubuntu-latest
-    environment: staging
-    timeout-minutes: 15
-    env:
-        ENVIRONMENT_NAME: staging
-    defaults:
+    staging:
+        name: "Stage"
+        runs-on: ubuntu-latest
+        environment: staging
+        timeout-minutes: 15
+        env:
+            ENVIRONMENT_NAME: staging
+        defaults:
             run:
                 shell: bash
-    steps:
-      - run: |
-          echo "Image: efi/server:123" > image.txt
-      - name: Upload Image Details
-        uses: actions/upload-artifact@v1
-        with:
-          name: image-details
-          path: image.txt
-  prod:
-    name : "Prod"
-    needs: "staging"
-    steps:
-      - name: Download image details
-        uses: actions/download-artifact@v1
-        with:
-          name: image-details
-        - run: |
-            echo Image Is $(cat image.txt)
+        steps:
+            - run: |
+                  echo "Image: efi/server:123" > image.txt
+            - name: Upload Image Details
+              uses: actions/upload-artifact@v1
+              with:
+                  name: image-details
+                  path: image.txt
+    prod:
+        name: "Prod"
+        needs: "staging"
+        steps:
+            - name: Download image details
+              uses: actions/download-artifact@v1
+              with:
+                  name: image-details
+            - run: |
+                  echo Image Is $(cat image.txt)
