@@ -25,6 +25,7 @@ jobs:
     prod:
         name: "Prod"
         needs: "staging"
+        runs-on: ubuntu-latest
         steps:
             - name: Download image details
               uses: actions/download-artifact@v1
