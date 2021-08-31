@@ -22,7 +22,8 @@ jobs:
         steps:
             - id: image
               run: |
-                  echo "::set-output name=imageId::ecr.docker:efi/something:123"
+                  IMAGE=1234
+                  echo "::set-output name=imageId::ecr.docker:efi/something:$IMAGE"
     terraform-apply:
         name: "Terraform apply"
         runs-on: ubuntu-latest
