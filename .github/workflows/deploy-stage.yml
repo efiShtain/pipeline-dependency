@@ -23,11 +23,27 @@ jobs:
             - id: image
               run: |
                   echo "::set-output name=imageId::ecr.docker:efi/something:123"
+    terraform-apply:
+        name: "Terraform apply"
+        runs-on: ubuntu-latest
+        environment: approval-required
+        timeout-minutes: 15
+        env:
+            ENVIRONMENT_NAME: staging
+        defaults:
+            run:
+                shell: bash
+        steps:
+            - id: image
+              run: |
+                  echo "manually approved"
     prod:
         name: "Prod"
-        needs: "staging"
+        needs:
+            - staging
+            - terraform-apply
         runs-on: ubuntu-latest
-        environment: production
+        environment: approval-required
         steps:
             - run: |
                   echo Image Is ${{needs.staging.outputs.imageId}}
