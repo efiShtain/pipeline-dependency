@@ -1,7 +1,9 @@
 name: "Deploy"
 
 on:
-    workflow_dispatch:
+    push:
+        branches:
+            - master
 
 jobs:
     staging:
@@ -21,6 +23,8 @@ jobs:
               run: |
                   echo "::set-output name=imageId::ecr.docker:efi/something:123"
     prod:
+        on:
+            workflow_dispatch:
         name: "Prod"
         needs: "staging"
         runs-on: ubuntu-latest
