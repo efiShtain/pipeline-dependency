@@ -29,7 +29,6 @@ jobs:
         runs-on: ubuntu-latest
         needs:
             - build
-        environment: approval-required
         timeout-minutes: 15
         env:
             ENVIRONMENT_NAME: staging
