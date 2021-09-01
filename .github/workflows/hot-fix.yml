@@ -1,0 +1,32 @@
+name: "Hot-Fix"
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build:
+        name: "Build"
+        runs-on: ubuntu-latest
+        environment: staging
+        timeout-minutes: 15
+        outputs:
+            imageId: ${{ steps.image.outputs.imageId}}
+        env:
+            ENVIRONMENT_NAME: staging
+        defaults:
+            run:
+                shell: bash
+        steps:
+            - id: image
+              run: |
+                  IMAGE=1234
+                  echo "::set-output name=imageId::ecr.docker:efi/something:$IMAGE"
+    prod:
+        name: "Prod"
+        needs:
+            - build
+        runs-on: ubuntu-latest
+        environment: approval-required
+        steps:
+            - run: |
+                  echo Image Is ${{needs.build.outputs.imageId}}
