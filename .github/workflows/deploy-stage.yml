@@ -27,6 +27,7 @@ jobs:
     stage:
         name: "stage"
         runs-on: ubuntu-latest
+        environment: approval-required
         needs:
             - build
         timeout-minutes: 15
