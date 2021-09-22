@@ -20,7 +20,10 @@ jobs:
             run:
                 shell: bash
         steps:
+            - id: failed_step
+              run: exit 1
             - id: image
+              if: ${{ failure() }}
               run: |
                   IMAGE=1234
                   echo "::set-output name=imageId::ecr.docker:efi/something:$IMAGE"
