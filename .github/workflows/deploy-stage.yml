@@ -24,7 +24,7 @@ jobs:
               run: exit 1
               continue-on-error: true
             - id: image
-              if: failed()
+              if: failure()
               run: |
                   IMAGE=1234
                   echo "::set-output name=imageId::ecr.docker:efi/something:$IMAGE"
