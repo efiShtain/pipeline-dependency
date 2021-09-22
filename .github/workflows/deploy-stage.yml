@@ -21,7 +21,7 @@ jobs:
                 shell: bash
         steps:
             - id: failed_step
-              run: exit 0
+              run: exit 1
               continue-on-error: true
             - id: image
               if: ${{ failure() }}
