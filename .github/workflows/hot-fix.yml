@@ -21,7 +21,7 @@ jobs:
               run: |
                    c
             - id: image
-              if: steps.check-image.outcome=='success'
+              if: steps.check-image.outcome=='failure'
               run: |
                   IMAGE=1234
                   echo "::set-output name=imageId::ecr.docker:efi/something:$IMAGE"
